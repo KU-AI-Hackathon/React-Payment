@@ -1,1 +1,1 @@
-# SamsungPay-React
+# React-Payment

@@ -314,7 +314,7 @@ function Payment({ history, form, ua }) {
         </Item>
         <Item>
           {getFieldDecorator('m_redirect_url', {
-            initialValue: 'http://192.168.81.107:3000',
+            initialValue: 'http://172.30.1.30:3000',
             rules: [{ required: false }],
           })(
             <Input size="large" addonBefore="리다이렉트 url" />,

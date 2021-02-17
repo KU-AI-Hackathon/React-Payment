@@ -75,6 +75,10 @@ function Payment({ history, form, ua }) {
           data.digital = digital;
         }
 
+        const { IMP } = window;
+        IMP.init(userCode);
+        IMP.request_pay(data, callback);
+        /*
         console.log("validateFieldsAndScroll");
         if (isReactNative()) {
           console.log("isReactNative");
@@ -95,6 +99,7 @@ function Payment({ history, form, ua }) {
           IMP.init(userCode);
           IMP.request_pay(data, callback);
         }
+        */
       }
     });
   }
@@ -183,7 +188,7 @@ function Payment({ history, form, ua }) {
 
   return (
     <Wrapper>
-      <Header>아임포트 결제 테스트</Header>
+      <Header>마스크 구매</Header>
       <FormContainer onSubmit={handleSubmit}>
         <Item label="PG사">
           {getFieldDecorator('pg', {
@@ -261,7 +266,7 @@ function Payment({ history, form, ua }) {
         </Item>
         <Item>
           {getFieldDecorator('name', {
-            initialValue: '아임포트 결제 데이터 분석',
+            initialValue: '일회용 마스크',
             rules: [{ required: true, message: '주문명은 필수입력입니다' }],
           })(
             <Input size="large" addonBefore="주문명" />,
@@ -269,7 +274,7 @@ function Payment({ history, form, ua }) {
         </Item>
         <Item>
           {getFieldDecorator('amount', {
-            initialValue: '39000',
+            initialValue: '1000',
             rules: [{ required: true, message: '결제금액은 필수입력입니다' }],
           })(
             <Input size="large" type="number" addonBefore="결제금액" />,
@@ -285,7 +290,7 @@ function Payment({ history, form, ua }) {
         </Item>
         <Item>
           {getFieldDecorator('buyer_name', {
-            initialValue: '홍길동',
+            initialValue: '민상연',
             rules: [{ required: true, message: '구매자 이름은 필수입력입니다' }],
           })(
             <Input size="large" addonBefore="이름" />,
@@ -293,7 +298,7 @@ function Payment({ history, form, ua }) {
         </Item>
         <Item>
           {getFieldDecorator('buyer_tel', {
-            initialValue: '01012341234',
+            initialValue: '01032320437',
             rules: [{ required: true, message: '구매자 전화번호는 필수입력입니다' }],
           })(
             <Input size="large" type="number" addonBefore="전화번호" />,
@@ -301,10 +306,18 @@ function Payment({ history, form, ua }) {
         </Item>
         <Item>
           {getFieldDecorator('buyer_email', {
-            initialValue: 'example@example.com',
+            initialValue: 'judemin2087@naver.com',
             rules: [{ required: true, message: '구매자 이메일은 필수입력입니다' }],
           })(
             <Input size="large" addonBefore="이메일" />,
+          )}
+        </Item>
+        <Item>
+          {getFieldDecorator('m_redirect_url', {
+            initialValue: 'http://192.168.81.107:3000',
+            rules: [{ required: false }],
+          })(
+            <Input size="large" addonBefore="리다이렉트 url" />,
           )}
         </Item>
         <Button type="primary" htmlType="submit" size="large">

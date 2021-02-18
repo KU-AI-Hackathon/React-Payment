@@ -13,6 +13,7 @@
   ],
   "dependencies": {
     "antd": "^3.20.5",
+    "cors": "^2.8.5",
     "customize-cra": "^0.4.1",
     "express": "^4.17.1",
     "iamport-react-native": "^1.6.2",

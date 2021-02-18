@@ -25,6 +25,7 @@ function Payment({ history, form, ua }) {
   const { getFieldDecorator, validateFieldsAndScroll, setFieldsValue, getFieldsValue } = form;
 
   function handleSubmit(e) {
+    //sendSuccess();
     e.preventDefault();
     
     validateFieldsAndScroll((error, values) => {
@@ -75,9 +76,13 @@ function Payment({ history, form, ua }) {
           data.digital = digital;
         }
 
+        
         const { IMP } = window;
         IMP.init(userCode);
         IMP.request_pay(data, callback);
+        sendSuccess();
+        
+
         /*
         console.log("validateFieldsAndScroll");
         if (isReactNative()) {
@@ -104,9 +109,29 @@ function Payment({ history, form, ua }) {
     });
   }
 
+  function sendSuccess(){
+    const recipeUrl = 'http://192.168.43.222:4000/status';
+    const postBody = {
+      id : "true",
+    };
+    const requestMetadata = {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postBody)
+    };
+
+    fetch(recipeUrl, requestMetadata)
+    .then(res => res.json());
+  }
+
   function callback(response) {
     const query = queryString.stringify(response);
     history.push(`/payment/result?${query}`);
+
+    console.log("callback");
+    console.log(response.success);
   }
 
   function onChangePg(value) {
@@ -290,7 +315,7 @@ function Payment({ history, form, ua }) {
         </Item>
         <Item>
           {getFieldDecorator('buyer_name', {
-            initialValue: '민상연',
+            initialValue: '안나경',
             rules: [{ required: true, message: '구매자 이름은 필수입력입니다' }],
           })(
             <Input size="large" addonBefore="이름" />,
@@ -314,7 +339,7 @@ function Payment({ history, form, ua }) {
         </Item>
         <Item>
           {getFieldDecorator('m_redirect_url', {
-            initialValue: 'http://172.30.1.30:3000',
+            initialValue: 'http://192.168.43.222:4000/status',
             rules: [{ required: false }],
           })(
             <Input size="large" addonBefore="리다이렉트 url" />,
